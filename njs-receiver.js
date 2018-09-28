@@ -3,6 +3,10 @@ const WebSocket = require('ws');
 const aesjs = require('aes-js');
 
 const sha256 = require('sha256');
+
+const {Person} = require('./app/models/person');
+
+const {mongoose} = require('./config/db');
  
 const wss = new WebSocket.Server({ port: 8080 });
 
@@ -24,6 +28,7 @@ wss.on('connection', function connection(ws) {
     array.forEach(value => {
       decryptedValues.push(decryption(value));
     });
+    dbsave();
     console.log(decryptedValues);
   })
  
@@ -43,4 +48,17 @@ function decryption(value) {
   //console.log((decryptedText));
 
   return decryptedText;
+};
+
+
+function dbsave() {
+  
+  decryptedValues.forEach(value => {
+    let objValue = JSON.parse(value);
+      
+        let person = new Person();
+        person.name = objValue.name;
+
+        person.save().then(data => console.log(data)).catch(err => console.log(err));
+    })
 }
