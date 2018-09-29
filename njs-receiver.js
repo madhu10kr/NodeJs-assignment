@@ -9,6 +9,8 @@ const {Person} = require('./app/models/person');
 const {mongoose} = require('./config/db');
  
 const wss = new WebSocket.Server({ port: 8080 });
+const wss2 = new WebSocket.Server({ port: 8081 });
+
 
 let receivedData = '';
 let array = [];
@@ -31,7 +33,8 @@ wss.on('connection', function connection(ws) {
     dbsave();
     console.log(decryptedValues);
   })
- 
+
+  
  // ws.send('something');
 });
 
@@ -61,4 +64,12 @@ function dbsave() {
 
         person.save().then(data => console.log(data)).catch(err => console.log(err));
     })
-}
+};
+
+
+wss2.on('connection',function(ws) {
+  decryptedValues.forEach(value => {
+
+    ws.send((value));
+    })
+});

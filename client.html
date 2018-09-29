@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <table border="1">
+        <thead>
+            <th>NAME</th>
+            <th>ORIGIN</th>
+            <th>DESTINATION</th>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+
+
+    <script>
+        const ws = new WebSocket('ws://localhost:8081');
+        let tbodyHandle = document.getElementById('tbody');
+
+        ws.onmessage = function(message) {
+        let obj = JSON.parse(message.data)
+            tbodyHandle.innerHTML += `<td>${obj.name}</td>
+            <td>${obj.origin}</td>
+            <td>${obj.destination}</td>`;
+            //console.log(obj.name);
+        }
+        </script>
+</body>
+</html>

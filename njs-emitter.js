@@ -2,6 +2,7 @@ const WebSocket = require('ws');
  
 const ws = new WebSocket('ws://localhost:8080');
 
+
 const aesjs = require('aes-js');
 
 const sha256 = require('sha256');
