@@ -7,7 +7,7 @@ const personSchema = new Schema({
     },
     time:{
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     stream:[{
         name:{
